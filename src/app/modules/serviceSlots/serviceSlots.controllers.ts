@@ -11,9 +11,9 @@ const getAllServiceSlot = catchAsync(async(req,res)=>{
 
     if(result.length === 0){
         sendResponse(res,{
-            statusCode: httpStatus.NOT_FOUND,
+            statusCode: httpStatus.OK,
             success:false,
-            message: "No Data Found",
+            message: "This services slot not available",
             data:result,
         })
     }

@@ -10,6 +10,17 @@ const ServiceSchema = new Schema<TService>(
             required: true,
             unique:true
         },
+        images:{
+            type: String,
+           
+            
+        },
+        serviceLevel:{
+            type: String,
+            enum: ["Standard","Premium","Deluxe","Express","Eco-Friendly"]
+            
+        },
+
         description:{
             type: String,
             required: true,

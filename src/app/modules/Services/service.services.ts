@@ -21,8 +21,45 @@ const createServiceIntoDB = async (payload: TService) => {
 
 // get all services
 
-const getAllServicesFromDB = async () => {
-  const result = await Service.find().select('-__v');
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getAllServicesFromDB = async (filterQuery:any) => {
+
+  const query:Record<string,unknown>={}
+
+  //searchTerm
+  if(filterQuery.searchTerm){
+    query.name = {$regex:filterQuery.searchTerm,$options:'i'}
+  }
+
+  console.log(filterQuery.servicelevel);
+  
+  const serviceLevels= filterQuery.servicelevel.split(',');
+  
+  //service level
+  if((filterQuery.servicelevel ?? []).length > 0){
+    query.serviceLevel = { $in: serviceLevels };
+  }
+  
+  console.log(query);
+  
+  let result = await Service.find(query).select('-__v');
+
+  //sortByPrice
+    if(filterQuery.sortByPrice === "priceAsc" || filterQuery.sortByPrice === "priceDesc"){
+   
+    const sortByPriceResult = filterQuery.sortByPrice === 'priceAsc' ? 1 : -1;
+    result = result.sort((a,b)=>{
+      return sortByPriceResult * (a.price -b.price)
+    })
+  }
+  //sortByDuration
+    if(filterQuery.sortByPrice === "durationAsc" || filterQuery.sortByPrice === "durationDesc"){
+   
+    const sortByPriceResult = filterQuery.sortByPrice === 'durationAsc' ? 1 : -1;
+    result = result.sort((a,b)=>{
+      return sortByPriceResult * (a.duration -b.duration)
+    })
+  }
   return result;
 };
 

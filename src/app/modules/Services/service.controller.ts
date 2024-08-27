@@ -24,8 +24,9 @@ const CreateService = catchAsync(async (req,res)=>{
 })
 
 const getAllServices = catchAsync(async(req,res)=>{
+    const query = req.query;
    
-    const result = await Services.getAllServicesFromDB();
+    const result = await Services.getAllServicesFromDB(query);
     if(!result){
         return sendResponse(res,{
              statusCode: httpStatus.NOT_FOUND,
