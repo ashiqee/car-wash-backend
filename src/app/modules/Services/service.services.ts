@@ -31,7 +31,6 @@ const getAllServicesFromDB = async (filterQuery:any) => {
     query.name = {$regex:filterQuery.searchTerm,$options:'i'}
   }
 
-  console.log(filterQuery.servicelevel);
   
   const serviceLevels= filterQuery.servicelevel.split(',');
   
@@ -40,7 +39,7 @@ const getAllServicesFromDB = async (filterQuery:any) => {
     query.serviceLevel = { $in: serviceLevels };
   }
   
-  console.log(query);
+ 
   
   let result = await Service.find(query).select('-__v');
 
