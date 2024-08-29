@@ -52,6 +52,24 @@ const getAllUserFromDB = async()=>{
 }
 
 
+// user role update 
+
+const updateUserIntoDb = async (id: string, payload: Partial<TUser>)=>{
+console.log(payload);
+console.log(id);
+
+  const { ...remainingServiceData } = payload;
+  const modifiedUpdateData: Record<string, unknown> = {
+    ...remainingServiceData,
+  };
+
+  const result = await User.findByIdAndUpdate(id, modifiedUpdateData, {
+    new: true,
+    runValidators: true,
+  }).select('-__v');
+
+}
+
 //user Login
 
 const userSignIntoDB = async(payload: TUserAuth )=>{
@@ -141,5 +159,6 @@ export const userServices = {
   userSignIntoDB,
   refreshToken,
   getAllUserFromDB,
-  getUserFromDB
+  getUserFromDB,
+  updateUserIntoDb
 };

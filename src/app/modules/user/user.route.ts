@@ -18,6 +18,7 @@ router.post('/login', validateRequest(UserValidations.loginValidationSchema),Use
 router.post('/refresh-token',validateRequest(UserValidations.refreshTokenValidationSchema),UserControllers.refreshToken);
 router.get('/user',auth(USER_ROLE.admin,USER_ROLE.user), UserControllers.getUser);
 router.get('/users',auth(USER_ROLE.admin), UserControllers.getAllUser);
+router.put('/user/:id',auth(USER_ROLE.admin), UserControllers.updateUserRole);
 
 
 export const UserRoutes = router;

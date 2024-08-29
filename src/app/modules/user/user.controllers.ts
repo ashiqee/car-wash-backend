@@ -58,6 +58,25 @@ const getAllUser = catchAsync(async (req,res)=>{
     })
 })
 
+// update user Role 
+const updateUserRole = catchAsync(async (req,res)=>{
+    const {id}=req.params;
+    const payload=req.body
+
+    const result =  await userServices.updateUserIntoDb(id,payload);
+
+    // const resultObj = result.toObject();
+    // delete resultObj.password;
+    // delete resultObj.__v;
+
+    sendResponse(res,{
+        statusCode: httpStatus.OK,
+        success:true,
+        message: "Update User Role successfully",
+        data: result,
+    })
+})
+
 
 
 // login user 
@@ -104,5 +123,6 @@ export const UserControllers = {
     signInUser,
     refreshToken,
     getUser,
-    getAllUser
+    getAllUser,
+    updateUserRole
 }
