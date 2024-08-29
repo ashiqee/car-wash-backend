@@ -3,6 +3,8 @@ import  express  from 'express';
 import validateRequest from '../../middlewares/validateRequests';
 import { UserControllers } from './user.controllers';
 import { UserValidations } from './user.validation';
+import auth from '../../middlewares/auth';
+import { USER_ROLE } from './user.constant';
 
 
 
@@ -14,6 +16,8 @@ router.post('/signup',validateRequest(UserValidations.CreateUserValidationSchema
 router.post('/login', validateRequest(UserValidations.loginValidationSchema),UserControllers.signInUser);
 
 router.post('/refresh-token',validateRequest(UserValidations.refreshTokenValidationSchema),UserControllers.refreshToken);
+router.get('/user',auth(USER_ROLE.admin,USER_ROLE.user), UserControllers.getUser);
+router.get('/users',auth(USER_ROLE.admin), UserControllers.getAllUser);
 
 
 export const UserRoutes = router;

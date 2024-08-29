@@ -3,11 +3,12 @@
 
 import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
-import { TUser, TUserAuth } from './user.interface';
+import { TTUserInfo, TUser, TUserAuth } from './user.interface';
 import { User } from './user.model';
 import config from '../../config';
 import { createToken, verifyToken } from './userAuth.utils';
 import { string } from 'zod';
+import { query } from 'express';
 
 export interface IUserDocument extends TUser, Document {}
 //user registration 
@@ -33,6 +34,22 @@ const createUserIntoDB = async (payload: TUser) => {
     throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create user');
   }
 };
+
+// get a user info 
+const getUserFromDB = async(query:TTUserInfo)=>{
+  
+  const userDetails = await User.findOne({email:query.userEmail})
+
+  return userDetails;
+}
+
+// get a user info for admin 
+const getAllUserFromDB = async()=>{
+  
+  const userDetails = await User.find()
+
+  return userDetails;
+}
 
 
 //user Login
@@ -122,5 +139,7 @@ const refreshToken = async (token: string)=>{
 export const userServices = {
   createUserIntoDB,
   userSignIntoDB,
-  refreshToken
+  refreshToken,
+  getAllUserFromDB,
+  getUserFromDB
 };

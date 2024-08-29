@@ -20,6 +20,9 @@ export type TUserAuth = {
     password: string,
 }
 
+export type TTUserInfo={
+    userEmail:string,
+}
 
 export interface UserModel extends Model<TUser>{
     // eslint-disable-next-line no-unused-vars

@@ -22,6 +22,41 @@ const createUser = catchAsync(async (req,res)=>{
         data: resultObj,
     })
 })
+// get User 
+const getUser = catchAsync(async (req,res)=>{
+    const userEmail=req.query;
+
+
+    const result =  await userServices.getUserFromDB(userEmail);
+
+    // const resultObj = result.toObject();
+    // delete resultObj.password;
+    // delete resultObj.__v;
+
+    sendResponse(res,{
+        statusCode: httpStatus.OK,
+        success:true,
+        message: "Get User Info successfully",
+        data: result,
+    })
+})
+// get all User 
+const getAllUser = catchAsync(async (req,res)=>{
+ 
+
+    const result =  await userServices.getAllUserFromDB();
+
+    // const resultObj = result.toObject();
+    // delete resultObj.password;
+    // delete resultObj.__v;
+
+    sendResponse(res,{
+        statusCode: httpStatus.OK,
+        success:true,
+        message: "Get All User Info successfully",
+        data: result,
+    })
+})
 
 
 
@@ -68,4 +103,6 @@ export const UserControllers = {
     createUser,
     signInUser,
     refreshToken,
+    getUser,
+    getAllUser
 }

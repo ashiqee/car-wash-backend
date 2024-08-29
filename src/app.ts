@@ -8,10 +8,14 @@ const app : Application = express();
 
 app.use(express.json());
 app.use(cookieParser());
+// app.use(cors())
 app.use(cors({
-    origin:['http://localhost:5173']
-}))
-
+    origin: 'http://localhost:5173', 
+    // origin: 'https://carwash-zeta.vercel.app', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204
+  }));
 app.use('/api/',router)
 
 const apiCheck = async (req:Request,res:Response)=>{
