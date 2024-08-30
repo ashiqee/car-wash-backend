@@ -114,6 +114,7 @@ const createServiceSlot = catchAsync(async(req,res)=>
     
     const {service,serviceDuration,date,startTime,endTime} = req.body;
 
+console.log(req.body);
 
     // check duplicate time slot 
 
