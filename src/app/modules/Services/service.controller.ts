@@ -25,6 +25,7 @@ const CreateService = catchAsync(async (req,res)=>{
 
 const getAllServices = catchAsync(async(req,res)=>{
     const query = req.query;
+
    
     const result = await Services.getAllServicesFromDB(query);
     if(!result){
@@ -110,8 +111,8 @@ const deleteService = catchAsync(async(req,res)=>{
 
 const createServiceSlot = catchAsync(async(req,res)=>
 {
-    const serviceDuration =60;
-    const {service,date,startTime,endTime} = req.body;
+    
+    const {service,serviceDuration,date,startTime,endTime} = req.body;
 
 
     // check duplicate time slot 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 
@@ -44,9 +45,19 @@ const getUserFromDB = async(query:TTUserInfo)=>{
 }
 
 // get a user info for admin 
-const getAllUserFromDB = async()=>{
+const getAllUserFromDB = async(filterQuery:any)=>{
+  const query:Record<string,unknown>={}
+
+  //searchTerm
+  if (filterQuery.searchTerm) {
+    query.$or = [
+      { name: { $regex: filterQuery.searchTerm, $options: 'i' } },
+      { role: { $regex: filterQuery.searchTerm, $options: 'i' } }
+    ];
+  }
   
-  const userDetails = await User.find()
+  
+  const userDetails = await User.find(query)
 
   return userDetails;
 }
@@ -55,8 +66,6 @@ const getAllUserFromDB = async()=>{
 // user role update 
 
 const updateUserIntoDb = async (id: string, payload: Partial<TUser>)=>{
-console.log(payload);
-console.log(id);
 
   const { ...remainingServiceData } = payload;
   const modifiedUpdateData: Record<string, unknown> = {

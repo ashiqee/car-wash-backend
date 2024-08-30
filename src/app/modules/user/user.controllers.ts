@@ -42,9 +42,9 @@ const getUser = catchAsync(async (req,res)=>{
 })
 // get all User 
 const getAllUser = catchAsync(async (req,res)=>{
- 
+const filterQuery = req.query
 
-    const result =  await userServices.getAllUserFromDB();
+    const result =  await userServices.getAllUserFromDB(filterQuery);
 
     // const resultObj = result.toObject();
     // delete resultObj.password;

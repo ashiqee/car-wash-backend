@@ -32,10 +32,10 @@ const getAllServicesFromDB = async (filterQuery:any) => {
   }
 
   
-  const serviceLevels= filterQuery.servicelevel.split(',');
-  
+
   //service level
   if((filterQuery.servicelevel ?? []).length > 0){
+    const serviceLevels= filterQuery.servicelevel.split(',')
     query.serviceLevel = { $in: serviceLevels };
   }
   
