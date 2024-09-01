@@ -10,7 +10,7 @@ import AppError from '../../errors/AppError';
 
 const createServiceBooking = catchAsync(async (req, res) => {
   const bookingData = req.body;
-console.log(bookingData);
+
 
   const user = req.user;
 
@@ -46,7 +46,7 @@ if(checkBookedSlotServiceId !== bookingDataServiceId){
   if (customer) {
     await ServicesSlot.findByIdAndUpdate(
       bookingData.slotId,
-      { isBooked: 'booked' },
+      { isBooked: 'processing' },
       { new: true },
     );
   }

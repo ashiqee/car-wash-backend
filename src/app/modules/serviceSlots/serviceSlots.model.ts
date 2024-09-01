@@ -26,7 +26,7 @@ const ServiceSlotSchema = new Schema<TServiceSlot>(
         },
         isBooked:{
             type: String,
-            enum: ["available","booked","canceled"],
+            enum: ["available","booked","canceled","processing"],
             default:'available',
         }
 

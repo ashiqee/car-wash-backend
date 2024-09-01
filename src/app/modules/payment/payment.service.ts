@@ -6,9 +6,11 @@ import { readFileSync } from "fs";
 import { ServiceBooking } from "../booking/booking.model";
 import { ServicesSlot } from "../serviceSlots/serviceSlots.model";
 
-const confirmationService = async (transactionId: string, status: string,slotId:string) => {
+const confirmationService = async (transactionId: string) => {
+    
+    
     const verifyResponse = await verifyPayment(transactionId);
-    console.log(verifyResponse);
+    
 
     let result;
     let message = "";
@@ -17,14 +19,17 @@ const confirmationService = async (transactionId: string, status: string,slotId:
         result = await ServiceBooking.findOneAndUpdate({ transactionId }, {
             paymentStatus: 'Paid'
         });
+        const slotId = result?.slot;
+     
+        
 
         if(result){
-             await ServicesSlot.findByIdAndUpdate({slotId},{
+             await ServicesSlot.findByIdAndUpdate({_id:slotId},{
                 isBooked: "booked"
             })
         }
 
-        message = "Successfully Paid!"
+        message = `${transactionId}`
     }
     else {
         message = "Payment Failed!"

@@ -6,7 +6,7 @@ export type TServiceSlot = {
   date: string;
   startTime: string;
   endTime: string;
-  isBooked: 'available' | 'booked' | 'canceled';
+  isBooked: 'available' | 'booked' | 'canceled'|"processing";
   createdAt: string;
   updatedAt: string;
   __v?: number;
