@@ -37,7 +37,7 @@ const createUserIntoDB = async (payload: TUser) => {
 };
 
 // get a user info 
-const getUserFromDB = async(query:TTUserInfo)=>{
+const getUserFromDB = async(query:any)=>{
   
   const userDetails = await User.findOne({email:query.userEmail})
 
@@ -66,6 +66,20 @@ const getAllUserFromDB = async(filterQuery:any)=>{
 // user role update 
 
 const updateUserIntoDb = async (id: string, payload: Partial<TUser>)=>{
+
+  const { ...remainingServiceData } = payload;
+  const modifiedUpdateData: Record<string, unknown> = {
+    ...remainingServiceData,
+  };
+
+  const result = await User.findByIdAndUpdate(id, modifiedUpdateData, {
+    new: true,
+    runValidators: true,
+  }).select('-__v');
+
+}
+
+const updateUserInfoIntoDb = async (id: string, payload: Partial<TUser>)=>{
 
   const { ...remainingServiceData } = payload;
   const modifiedUpdateData: Record<string, unknown> = {
@@ -169,5 +183,6 @@ export const userServices = {
   refreshToken,
   getAllUserFromDB,
   getUserFromDB,
-  updateUserIntoDb
+  updateUserIntoDb,
+  updateUserInfoIntoDb
 };

@@ -19,6 +19,7 @@ router.post('/refresh-token',validateRequest(UserValidations.refreshTokenValidat
 router.get('/user',auth(USER_ROLE.admin,USER_ROLE.user), UserControllers.getUser);
 router.get('/users',auth(USER_ROLE.admin), UserControllers.getAllUser);
 router.put('/user/:id',auth(USER_ROLE.admin), UserControllers.updateUserRole);
+router.put('/userInfo/:id',auth(USER_ROLE.admin,USER_ROLE.user), UserControllers.updateUserRole);
 
 
 export const UserRoutes = router;
