@@ -18,9 +18,10 @@ const getAllServicesSlotsFromDB = async()=>{
 
 const getAllServicesAvailableSlotFromDB = async (payload:TQuery) => {
     const {date,serviceId}=payload;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const query: any = {isBooked:{$eq:"available"}}
+// let query:any;
+// const query: any = {isBooked:{$eq:"available"}}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const query: any = {}
     if(date){
         query.date =date;
     }
@@ -37,8 +38,6 @@ const getAllServicesAvailableSlotFromDB = async (payload:TQuery) => {
 
   const updateSlotsStatusIntoDB = async (id: string, payload: Partial<TServiceSlot>)=>{
 
-    console.log(payload);
-    
   
     const result = await ServicesSlot.findByIdAndUpdate(id, {isBooked:payload.isBooked}, {
       new: true,

@@ -44,5 +44,7 @@ export interface TBooking {
   vehicleModel: string;
   manufacturingYear: number;
   registrationPlate:string;
+  paymentStatus?:string;
+  transactionId:string;
   
 }

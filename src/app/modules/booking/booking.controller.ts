@@ -10,6 +10,7 @@ import AppError from '../../errors/AppError';
 
 const createServiceBooking = catchAsync(async (req, res) => {
   const bookingData = req.body;
+console.log(bookingData);
 
   const user = req.user;
 
@@ -59,6 +60,9 @@ if(checkBookedSlotServiceId !== bookingDataServiceId){
     data: result,
   });
 });
+
+
+
 
 //get all bookings by admin
 const getAllBookings = catchAsync(async (req, res) => {
