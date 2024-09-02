@@ -17,7 +17,6 @@ const booking_model_1 = require("./booking.model");
 const createServiceBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const transactionId = `txn-${Date.now()}`;
     const orderData = Object.assign(Object.assign({}, payload), { transactionId });
-    console.log(orderData);
     const createOrder = yield booking_model_1.ServiceBooking.create(orderData);
     if (createOrder) {
         try {
@@ -43,20 +42,11 @@ const createServiceBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0
         }
     }
 });
-// const createBookingWithPayIntoDB = async(payload: TBooking)=>{
-//     const {user,bookedServices}=payload;
-//     const transactionId = `txn-${Date.now()}`;
-//     const orderData = {...payload,transactionId}
-// console.log(orderData);
-//     const result = await ServiceBooking.create(orderData);
-//     const populateBooking = await ServiceBooking.findById(result._id)
-//     .populate('customer service slot','-role -__v -createdAt -updatedAt').select('-__v');
-//     return populateBooking;
-// }
 //get all booking admin
 const getAllServiceBookingFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = booking_model_1.ServiceBooking.find()
-        .populate('customer service slot', '-role -__v -createdAt -updatedAt').select('-__v');
+        .populate('customer service slot', '-role -__v -createdAt -updatedAt').select('-__v')
+        .sort({ createdAt: -1 });
     return result;
 });
 //get users all booking get user
