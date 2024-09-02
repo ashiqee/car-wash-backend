@@ -10,7 +10,7 @@ const getAllServicesSlotsFromDB = async()=>{
 
   const result = await ServicesSlot.find()
   .populate('service','-__v')
-  .select('-__v')
+  .sort({createdAt:-1})
 
   return result;
 }
@@ -31,7 +31,7 @@ const query: any = {}
     }
     const result = await ServicesSlot.find(query)
     .populate('service','-__v')
-    .select('-__v')
+    .sort({createdAt:-1})
     return result;
   };
 

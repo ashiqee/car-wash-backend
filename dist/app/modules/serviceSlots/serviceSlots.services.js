@@ -15,7 +15,8 @@ const serviceSlots_model_1 = require("./serviceSlots.model");
 const getAllServicesSlotsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield serviceSlots_model_1.ServicesSlot.find()
         .populate('service', '-__v')
-        .select('-__v');
+        .select('-__v')
+        .sort({ createdAt: -1 });
     return result;
 });
 const getAllServicesAvailableSlotFromDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,7 +33,8 @@ const getAllServicesAvailableSlotFromDB = (payload) => __awaiter(void 0, void 0,
     }
     const result = yield serviceSlots_model_1.ServicesSlot.find(query)
         .populate('service', '-__v')
-        .select('-__v');
+        .select('-__v')
+        .sort({ createdAt: -1 });
     return result;
 });
 const updateSlotsStatusIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
